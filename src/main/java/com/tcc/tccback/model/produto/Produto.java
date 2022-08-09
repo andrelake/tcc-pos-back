@@ -24,10 +24,10 @@ public class Produto {
     private int quantidade;
     private BigDecimal precoUnitario;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Categoria categoria;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "fornecedor_produto",
         joinColumns = @JoinColumn(name = "produto_id"),
