@@ -20,7 +20,7 @@ public class Fornecedor {
     private Integer id;
     private String nome;
 
-    @OneToOne
+    @OneToOne()
     private Categoria categoria;
 
     @ManyToMany(mappedBy = "listaFornecedores")
