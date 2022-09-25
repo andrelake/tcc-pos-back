@@ -1,0 +1,30 @@
+package com.tcc.tccback.controller.usuario;
+
+import com.tcc.tccback.model.usuario.dto.UsuarioDTO;
+import com.tcc.tccback.model.usuario.dto.UsuarioFormDTO;
+import com.tcc.tccback.service.usuario.UsuarioFindService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@RequestMapping(value = "/usuario")
+public class UsuarioFindController {
+
+    @Autowired
+    private UsuarioFindService usuarioFindService;
+
+    @GetMapping(value = "todos")
+    public ResponseEntity<List<UsuarioDTO>> findAllUsuarios() {
+        return new ResponseEntity<>(usuarioFindService.findAll(),HttpStatus.OK);
+    }
+
+    @PostMapping(value = "busca")
+    public ResponseEntity<UsuarioDTO> findUsuarioLogado(@RequestBody UsuarioFormDTO usuarioFormDTO) {
+        return new ResponseEntity<>(usuarioFindService.findUsuarioLogado(usuarioFormDTO),HttpStatus.OK);
+    }
+}
