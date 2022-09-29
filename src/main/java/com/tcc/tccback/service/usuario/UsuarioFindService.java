@@ -39,4 +39,10 @@ public class UsuarioFindService {
 
         return new UsuarioDTO(usuario);
     }
+
+    public Usuario findUsuarioLogadoEntity(UsuarioFormDTO usuarioFormDTO) {
+        return usuarioRepository.findByUsername(usuarioFormDTO.getUsername())
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(
+                        String.format("Usuário com o username '%s' não encontrado", usuarioFormDTO.getUsername())));
+    }
 }
