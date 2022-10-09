@@ -29,15 +29,16 @@ public class FornecedorUpdateService {
         Fornecedor fornecedorEncontrado = fornecedorRepository.findById(fornecedorDTO.getId())
                 .orElseThrow(() -> new FornecedorNaoEncontradoException(fornecedorDTO.getNome()));
 
-        trataFornecedorEncontrado(fornecedorDTO, fornecedorEncontrado);
-        fornecedorRepository.save(fornecedorEncontrado);
+        Fornecedor fornecedorAtualizado = trataFornecedorEncontrado(fornecedorDTO, fornecedorEncontrado);
+        fornecedorRepository.save(fornecedorAtualizado);
     }
 
-    private void trataFornecedorEncontrado(FornecedorDTO fornecedorDTO, Fornecedor fornecedorEncontrado) {
+    private Fornecedor trataFornecedorEncontrado(FornecedorDTO fornecedorDTO, Fornecedor fornecedorEncontrado) {
         Categoria categoria = categoriaRepository.findByNome(fornecedorDTO.getCategoria())
                 .orElseThrow(() -> new CategoriaNaoEncontradoException(fornecedorDTO.getCategoria()));
 
         fornecedorEncontrado.setNome(fornecedorDTO.getNome());
         fornecedorEncontrado.setCategoria(categoria);
+        return fornecedorEncontrado;
     }
 }
