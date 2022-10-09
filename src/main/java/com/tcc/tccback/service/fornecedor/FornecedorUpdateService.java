@@ -1,15 +1,14 @@
 package com.tcc.tccback.service.fornecedor;
 
+import com.tcc.tccback.exception.categoria.CategoriaNaoEncontradoException;
 import com.tcc.tccback.exception.fornecedor.FornecedorNaoEncontradoException;
 import com.tcc.tccback.model.categoria.Categoria;
 import com.tcc.tccback.model.fornecedor.Fornecedor;
-import com.tcc.tccback.model.fornecedor.dto.FornecedorFormDTO;
+import com.tcc.tccback.model.fornecedor.dto.FornecedorDTO;
 import com.tcc.tccback.repository.CategoriaRepository;
 import com.tcc.tccback.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class FornecedorUpdateService {
@@ -26,18 +25,19 @@ public class FornecedorUpdateService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public void updateById(FornecedorFormDTO fornecedorDTO) {
-        Fornecedor fornecedorEncontrado = fornecedorRepository.findByNome(fornecedorDTO.getNome())
+    public void updateById(FornecedorDTO fornecedorDTO) {
+        Fornecedor fornecedorEncontrado = fornecedorRepository.findById(fornecedorDTO.getId())
                 .orElseThrow(() -> new FornecedorNaoEncontradoException(fornecedorDTO.getNome()));
 
-        tratafornecedorEncontrado(fornecedorDTO, fornecedorEncontrado);
+        trataFornecedorEncontrado(fornecedorDTO, fornecedorEncontrado);
         fornecedorRepository.save(fornecedorEncontrado);
     }
 
-    private void tratafornecedorEncontrado(FornecedorFormDTO fornecedorDTO, Fornecedor fornecedorEncontrado) {
-        Optional<Categoria> categoria = categoriaRepository.findByNome(fornecedorDTO.getCategoria());
+    private void trataFornecedorEncontrado(FornecedorDTO fornecedorDTO, Fornecedor fornecedorEncontrado) {
+        Categoria categoria = categoriaRepository.findByNome(fornecedorDTO.getCategoria())
+                .orElseThrow(() -> new CategoriaNaoEncontradoException(fornecedorDTO.getCategoria()));
 
         fornecedorEncontrado.setNome(fornecedorDTO.getNome());
-        fornecedorEncontrado.setCategoria(categoria.get());
+        fornecedorEncontrado.setCategoria(categoria);
     }
 }
