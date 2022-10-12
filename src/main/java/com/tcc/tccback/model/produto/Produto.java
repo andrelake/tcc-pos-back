@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 @Data
@@ -27,10 +26,7 @@ public class Produto {
     @OneToOne(cascade = CascadeType.ALL)
     private Categoria categoria;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "fornecedor_produto",
-        joinColumns = @JoinColumn(name = "produto_id"),
-        inverseJoinColumns = @JoinColumn(name = "fornecedor_id"))
-    private Set<Fornecedor> listaFornecedores;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
 }

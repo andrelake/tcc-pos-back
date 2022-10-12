@@ -24,6 +24,6 @@ public class Fornecedor {
     @OneToOne()
     private Categoria categoria;
 
-    @ManyToMany(mappedBy = "listaFornecedores")
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Produto> listaProdutos = new ArrayList<>();
 }
