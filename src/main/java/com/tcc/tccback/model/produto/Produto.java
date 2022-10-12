@@ -23,7 +23,7 @@ public class Produto {
     private int quantidade;
     private BigDecimal precoUnitario;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Categoria categoria;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
