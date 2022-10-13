@@ -18,7 +18,7 @@ public class CategoriaUpdateService {
     }
 
     public void updateById(CategoriaDTO categoriaDTO) {
-        Categoria categoriaEncontrada = categoriaRepository.findByNome(categoriaDTO.getNome())
+        Categoria categoriaEncontrada = categoriaRepository.findById(categoriaDTO.getId())
                 .orElseThrow(() -> new CategoriaNaoEncontradoException(categoriaDTO.getNome()));
 
         tratacategoriaEncontrado(categoriaDTO, categoriaEncontrada);

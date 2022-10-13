@@ -1,6 +1,7 @@
 package com.tcc.tccback.controller.categoria;
 
 import com.tcc.tccback.model.categoria.Categoria;
+import com.tcc.tccback.model.categoria.dto.CategoriaFormDTO;
 import com.tcc.tccback.service.categoria.CategoriaInsertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class CategoriaInsertController {
     private CategoriaInsertService categoriaInsertService;
 
     @PostMapping()
-    public ResponseEntity<Void> salvar(@RequestBody Categoria categoria) {
+    public ResponseEntity<Void> salvar(@RequestBody CategoriaFormDTO categoria) {
         categoriaInsertService.salvar(categoria);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
