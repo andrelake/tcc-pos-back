@@ -26,7 +26,7 @@ public class ProdutoDeleteService {
 
     public void deletar(ProdutoDTO dto) {
         Optional<Produto> produto = produtoRepository.findById(dto.getId());
-        produto.ifPresent(value -> produtoRepository.delete(value));
+        produto.ifPresent(prod -> prod.setAtivo(false));
+        produtoRepository.save(produto.get());
     }
-
 }

@@ -4,6 +4,7 @@ import com.tcc.tccback.exception.categoria.CategoriaNaoEncontradoException;
 import com.tcc.tccback.exception.fornecedor.FornecedorNaoEncontradoException;
 import com.tcc.tccback.model.fornecedor.Fornecedor;
 import com.tcc.tccback.model.fornecedor.dto.FornecedorDTO;
+import com.tcc.tccback.model.fornecedor.dto.FornecedorProdsDTO;
 import com.tcc.tccback.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,9 @@ public class FornecedorFindService {
                 .collect(Collectors.toList());
     }
 
-    public Fornecedor findById(int id) {
-        return fornecedorRepository.findById(id).orElseThrow(() -> new FornecedorNaoEncontradoException(id));
+    public FornecedorProdsDTO findById(int id) {
+        Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow(() -> new FornecedorNaoEncontradoException(id));
+        return FornecedorProdsDTO.toFornecedorProdsDTO(fornecedor);
     }
 
     public Set<Fornecedor> findByIdIn(List<Integer> fornecedoresIds) {

@@ -19,4 +19,5 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private boolean ativo = true;
 }

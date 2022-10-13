@@ -22,6 +22,7 @@ public class FornecedorDeleteService {
     @Transactional
     public void deletar(FornecedorDTO dto) {
         Optional<Fornecedor> fornecedor = fornecedorRepository.findById(dto.getId());
-        fornecedor.ifPresent(value -> fornecedorRepository.delete(value));
+        fornecedor.ifPresent(fornecedorr -> fornecedorr.setAtivo(false));
+        fornecedorRepository.save(fornecedor.get());
     }
 }

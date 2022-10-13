@@ -6,18 +6,20 @@ import lombok.Data;
 
 @Data
 @Builder
-public class FornecedorDTO {
+public class FornecedorProdsDTO {
 
     private Integer id;
     private String nome;
     private String categoria;
+    private boolean temProdutos;
     private boolean ativo;
 
-    public static FornecedorDTO toFornecedorDTO(Fornecedor fornecedor) {
-        return FornecedorDTO.builder()
+    public static FornecedorProdsDTO toFornecedorProdsDTO(Fornecedor fornecedor) {
+        return FornecedorProdsDTO.builder()
                 .id(fornecedor.getId())
                 .nome(fornecedor.getNome())
                 .categoria(fornecedor.getCategoria().getNome())
+                .temProdutos(!fornecedor.getListaProdutos().isEmpty())
                 .ativo(fornecedor.isAtivo())
                 .build();
     }

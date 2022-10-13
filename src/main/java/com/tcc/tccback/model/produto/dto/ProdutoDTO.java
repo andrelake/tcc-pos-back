@@ -15,6 +15,7 @@ public class ProdutoDTO {
     private BigDecimal precoUnitario;
     private String categoria;
     private String fornecedor;
+    private boolean ativo;
 
     public ProdutoDTO() {
     }
@@ -27,5 +28,6 @@ public class ProdutoDTO {
         this.setPrecoUnitario(produto.getPrecoUnitario());
         this.setCategoria(produto.getCategoria().getNome());
         this.setFornecedor(produto.getFornecedor().getNome());
+        this.setAtivo(produto.isAtivo());
     }
 }
